@@ -1,0 +1,26 @@
+<h1>Engoo dashboard</h1>
+
+<% unless current_member.has_subscription?  %>
+  <div class="modal" id="subscription-modal">
+
+    <h2><%= t('Please select plan') %>:</h2>
+
+    <% @subscriptions.each do |subscription| %>
+        <button data-id="<%= subscription.id %>">
+          <%= subscription.name %>
+        </button>
+    <% end %>
+
+  </div>
+<% end %>
+
+<div class="teacher-list">
+  <h2>Teachers</h2>
+  <ul>
+    <% @teachers.each do |teacher| %>
+      <%= teacher.name %>
+    <% end %>
+  </ul>
+</div>
+
+

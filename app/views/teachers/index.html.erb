@@ -1,0 +1,62 @@
+<h2>Teachers</h2>
+
+<hr>
+
+<% dates = (Date.today.. Date.today + 6) %>
+
+<div class="row">
+  <div class="list-group">
+    <span>Filter date:</span>
+    <ul class="list-inline">
+      <% dates.each_with_index do |date, i| %>
+          <li>
+            <a href="/teachers/day/<%= i %>"><%= date.day %></a>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+<% @teachers.each do |teacher| %>
+      <div class="col-lg-4">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <p><%= image_tag teacher.avatar_url, style: "max-width: 100%" %></p>
+      <p>Name: <%= teacher.name %></p>
+      <p>Nationality: <%= teacher.nationality %></p>
+      <p>Gender: <%= teacher.gender %></p>
+    </div>
+  </div>
+  <% teacher_schedule = teacher.today_schedule(@start_time, @end_time) %>
+
+  <div class="row">
+    <%
+       @interval.each do |x|
+    %>
+        <% booked = false %>
+        <p>
+            <%= x.strftime "%H:%M" %> - <%= (x + 30.minutes).strftime "%H:%M" %>
+        </p>
+
+        <% teacher_schedule.each do |schedule| %>
+            <% if( (x..x + 29.minutes).cover? schedule.date_start ) %>
+                <p class="text-danger">BOOKED</p>
+                <% booked = true %>
+            <% end %>
+        <% end %>
+
+        <% if !booked %>
+            <button class="book btn btn-success" data-teacher="<%= teacher.id %>" data-date="<%= x %>">Book</button>
+        <% end %>
+
+    <% end %>
+  </div>
+      </div>
+<% end %>
+</div>
+
+<div class="pager">
+  <%= will_paginate @teachers %>
+</div>
