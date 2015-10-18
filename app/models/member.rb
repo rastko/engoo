@@ -5,6 +5,7 @@ class Member < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :subscription
+  has_many :lessons
 
   def has_subscription?
     !!self.subscription
