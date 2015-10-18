@@ -1,0 +1,16 @@
+<div class="row">
+  <h1>Upcomming lessons</h1>
+</div>
+
+<hr>
+
+<div class="row">
+  <% @lessons.each do |lesson| %>
+      <div class="col-lg-3">
+        <p class="">
+          <%= lesson.schedule.date_start.strftime("%m-%d-%Y %H:%M") %>
+        </p>
+        <button class="btn btn-danger cancel-lesson" data-lesson="<%= lesson.id %>">Cancel lesson</button>
+      </div>
+  <% end %>
+</div>

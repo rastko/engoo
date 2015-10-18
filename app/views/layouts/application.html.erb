@@ -67,9 +67,9 @@
         <h3>Sidebar</h3>
         <ul class="nav nav-list">
           <li class="nav-header">Sidebar</li>
-          <li><%= link_to "Techers", "/teachers"  %></li>
-          <li><%= link_to "Link2", "/path2"  %></li>
-          <li><%= link_to "Link3", "/path3"  %></li>
+          <li><%= link_to "Techers", teachers_path  %></li>
+          <li><%= link_to "Lessons", lessons_path  %></li>
+          <li><%= link_to "Logout", destroy_member_session_path, :method => :delete  %></li>
         </ul>
       </div><!--/.well -->
     </div><!--/span-->
