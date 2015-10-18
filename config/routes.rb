@@ -10,6 +10,15 @@ Rails.application.routes.draw do
   end
 
   resources :users
+  resources :schedules
+  resources :lessons
+
+  resources :teachers do
+    collection do
+      get "/day/:day_id", to: "teachers#index"
+    end
+  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
