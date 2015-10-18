@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151018024513) do
+ActiveRecord::Schema.define(version: 20151018051019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "lessons", force: :cascade do |t|
+    t.integer  "member_id"
+    t.integer  "schedule_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "members", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -35,6 +42,14 @@ ActiveRecord::Schema.define(version: 20151018024513) do
   add_index "members", ["email"], name: "index_members_on_email", unique: true, using: :btree
   add_index "members", ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true, using: :btree
   add_index "members", ["subscription_id"], name: "index_members_on_subscription_id", using: :btree
+
+  create_table "schedules", force: :cascade do |t|
+    t.integer  "status"
+    t.integer  "teacher_id"
+    t.datetime "date_start"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "subscriptions", force: :cascade do |t|
     t.datetime "created_at", null: false
