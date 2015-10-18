@@ -1,0 +1,38 @@
+<h2>Teachers</h2>
+
+<% dates = (Date.today.. Date.today + 6) %>
+
+<ul>
+    <% dates.each_with_index do |date, i| %>
+      <li>
+        <a href="/teachers/day/<%= i %>"><%= date.day %></a>
+      </li>
+    <% end %>
+</ul>
+
+<% @teachers.each do |teacher| %>
+    <%= teacher.name %>
+    <% @interval.each do |x| %>
+        <% booked = false %>
+        <p>
+            <%= x.strftime "%H:%M" %> - <%= (x + 30.minutes).strftime "%H:%M" %>
+        </p>
+
+        <% teacher.schedules.each do |schedule| %>
+            <% if( (x..x + 29.minutes).cover? schedule.date_start ) %>
+                <p class="text-danger">BOOKED</p>
+                <% booked = true %>
+            <% end %>
+        <% end %>
+
+        <% if !booked %>
+            <button class="book btn btn-success" data-teacher="<%= teacher.id %>" data-date="<%= x %>">Book</button>
+        <% end %>
+
+    <% end %>
+
+<% end %>
+
+<div class="pager">
+  <%= will_paginate @teachers %>
+</div>
