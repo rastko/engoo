@@ -1,7 +1,7 @@
 class CreateSubscriptions < ActiveRecord::Migration
   def change
     create_table :subscriptions do |t|
-      t.integer :type
+      t.integer :price
 
       t.timestamps null: false
     end
